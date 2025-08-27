@@ -1,9 +1,12 @@
 resource "aws_vpc" "chore-bina-vpc" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.cidr_block
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name = "chore-bina-vpc"
-  }
+  tags = merge(
+    local.tags,
+    {
+      Name = "chame-bina-vpc"
+    }
+  )
 }
