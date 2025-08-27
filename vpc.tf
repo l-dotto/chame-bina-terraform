@@ -1,4 +1,4 @@
-resource "aws_vpc" "chore-bina-vpc" {
+resource "aws_vpc" "eks-vpc" {
   cidr_block           = var.cidr_block
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -6,7 +6,7 @@ resource "aws_vpc" "chore-bina-vpc" {
   tags = merge(
     local.tags,
     {
-      Name = "chame-bina-vpc"
+      Name = "${var.project_name}-vpc"
     }
   )
 }

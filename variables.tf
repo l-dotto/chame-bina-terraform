@@ -17,3 +17,8 @@ variable "aws_region" {
   type        = string
   description = "The AWS region to AWS resources"
 }
+
+variable "project_name" {
+  type        = string
+  description = "Name of the project to be used in ressources"
+}
