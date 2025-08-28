@@ -5,7 +5,7 @@ resource "aws_subnet" "private-1a" {
   map_public_ip_on_launch = false
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name                              = "${var.project_name}-private-1a",
       "kubernetes.io/role/internal-elb" = 1
@@ -20,7 +20,7 @@ resource "aws_subnet" "private-1b" {
   map_public_ip_on_launch = false
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name                              = "${var.project_name}-private-1b",
       "kubernetes.io/role/internal-elb" = 1
@@ -35,7 +35,7 @@ resource "aws_subnet" "private-1c" {
   map_public_ip_on_launch = false
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name                              = "${var.project_name}-private-1c",
       "kubernetes.io/role/internal-elb" = 1

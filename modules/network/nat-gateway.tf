@@ -2,7 +2,7 @@ resource "aws_eip" "eip-1a" {
   domain = "vpc"
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-eip-1a"
     }
@@ -13,7 +13,7 @@ resource "aws_eip" "eip-1b" {
   domain = "vpc"
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-eip-1b"
     }
@@ -24,7 +24,7 @@ resource "aws_eip" "eip-1c" {
   domain = "vpc"
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-eip-1c"
     }
@@ -36,7 +36,7 @@ resource "aws_nat_gateway" "nat-gateway-1a" {
   subnet_id     = aws_subnet.public-1a.id
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-ngw-1a"
     }
@@ -50,7 +50,7 @@ resource "aws_nat_gateway" "nat-gateway-1b" {
   subnet_id     = aws_subnet.public-1b.id
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-ngw-1b"
     }
@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "nat-gateway-1c" {
   subnet_id     = aws_subnet.public-1c.id
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-ngw-1c"
     }
@@ -82,7 +82,7 @@ resource "aws_route_table" "private-route-table-1a" {
   }
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-private-rtb-1a"
     }
@@ -98,7 +98,7 @@ resource "aws_route_table" "private-route-table-1b" {
   }
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-private-rtb-1b"
     }
@@ -114,7 +114,7 @@ resource "aws_route_table" "private-route-table-1c" {
   }
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name = "${var.project_name}-private-rtb-1c"
     }

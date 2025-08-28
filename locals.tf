@@ -3,6 +3,6 @@ locals {
     IT         = "Premiersoft"
     Department = "Software Studio"
     Manager    = "Luan Dotto"
-    Project    = "Chame Bina Terraform Starter"
+    Project    = "Chame Bina Terraform cluster Starter"
   }
 }
