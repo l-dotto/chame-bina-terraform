@@ -42,3 +42,18 @@ resource "aws_subnet" "private-1c" {
     }
   )
 }
+
+resource "aws_route_table_association" "rtb-association-private-1a" {
+  subnet_id      = aws_subnet.private-1a.id
+  route_table_id = aws_route_table.private-route-table-1a.id
+}
+
+resource "aws_route_table_association" "rtb-association-private-1b" {
+  subnet_id      = aws_subnet.private-1b.id
+  route_table_id = aws_route_table.private-route-table-1b.id
+}
+
+resource "aws_route_table_association" "rtb-association-private-1c" {
+  subnet_id      = aws_subnet.private-1c.id
+  route_table_id = aws_route_table.private-route-table-1c.id
+}
