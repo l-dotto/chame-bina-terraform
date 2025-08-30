@@ -14,6 +14,9 @@ resource "aws_eks_cluster" "aws_eks_cluster" {
       var.public_subnet_1b,
       var.public_subnet_1c
     )
+
+    endpoint_private_access = true
+    endpoint_public_access  = true
   }
 
   depends_on = [
