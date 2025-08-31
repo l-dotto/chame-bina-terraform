@@ -30,8 +30,86 @@ override.tf.json
 # !example_override.tf
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
+*tfplan*
 
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# AWS & Cloud Provider credentials
+.aws/
+aws.conf
+aws-config
+.azure/
+.gcp/
+credentials
+credentials.json
+service-account.json
+gcloud-service-key.json
+
+# SSH Keys & Certificates
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.jks
+*.pfx
+id_rsa*
+id_ed25519*
+known_hosts
+
+# Environment files
+.env
+.env.*
+.envrc
+.envrc.local
+
+# Secrets & Passwords
+*secret*
+*password*
+*passwd*
+*token*
+vault.yml
+secrets.yml
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store?
+ehthumbs.db
+Icon?
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Log files
+*.log
+logs/
+*.out
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Application specific
+kubeconfig*
+.kube/config
+.kubectl_aliases

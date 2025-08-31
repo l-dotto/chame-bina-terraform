@@ -37,3 +37,11 @@ module "managed_node_group" {
   admin_user_arn       = var.admin_user_arn
   cluster_name         = module.eks-cluster.cluster_name
 }
+
+module "load_balancer" {
+  source = "./modules/load-balancer"
+
+  project_name = var.project_name
+  tags         = local.tags
+  cluster_name = module.eks-cluster.cluster_name
+}
