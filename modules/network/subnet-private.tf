@@ -7,8 +7,9 @@ resource "aws_subnet" "private-1a" {
   tags = merge(
     var.tags,
     {
-      Name                              = "${var.project_name}-private-1a",
-      "kubernetes.io/role/internal-elb" = 1
+      Name                                                    = "${var.project_name}-private-1a",
+      "kubernetes.io/role/internal-elb"                       = 1,
+      "kubernetes.io/cluster/${var.project_name}-eks-cluster" = "owned"
     }
   )
 }
@@ -22,8 +23,9 @@ resource "aws_subnet" "private-1b" {
   tags = merge(
     var.tags,
     {
-      Name                              = "${var.project_name}-private-1b",
-      "kubernetes.io/role/internal-elb" = 1
+      Name                                                    = "${var.project_name}-private-1b",
+      "kubernetes.io/role/internal-elb"                       = 1,
+      "kubernetes.io/cluster/${var.project_name}-eks-cluster" = "owned"
     }
   )
 }
@@ -37,8 +39,9 @@ resource "aws_subnet" "private-1c" {
   tags = merge(
     var.tags,
     {
-      Name                              = "${var.project_name}-private-1c",
-      "kubernetes.io/role/internal-elb" = 1
+      Name                                                    = "${var.project_name}-private-1c",
+      "kubernetes.io/role/internal-elb"                       = 1,
+      "kubernetes.io/cluster/${var.project_name}-eks-cluster" = "owned"
     }
   )
 }

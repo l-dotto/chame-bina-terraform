@@ -37,3 +37,9 @@ variable "public_subnet_1c" {
   type        = list(string)
   description = "List of public subnet IDs"
 }
+
+variable "admin_user_arn" {
+  type        = string
+  description = "ARN of the IAM user that should have admin access to the EKS cluster"
+  default     = null
+}

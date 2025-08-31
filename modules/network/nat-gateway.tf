@@ -77,7 +77,7 @@ resource "aws_route_table" "private-route-table-1a" {
   vpc_id = aws_vpc.eks-vpc.id
 
   route {
-    cidr_block     = var.private_subnet_cidrs[0]
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat-gateway-1a.id
   }
 
@@ -93,7 +93,7 @@ resource "aws_route_table" "private-route-table-1b" {
   vpc_id = aws_vpc.eks-vpc.id
 
   route {
-    cidr_block     = var.private_subnet_cidrs[1]
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat-gateway-1b.id
   }
 
@@ -109,7 +109,7 @@ resource "aws_route_table" "private-route-table-1c" {
   vpc_id = aws_vpc.eks-vpc.id
 
   route {
-    cidr_block     = var.private_subnet_cidrs[2]
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat-gateway-1c.id
   }
 

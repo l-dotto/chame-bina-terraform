@@ -7,8 +7,9 @@ resource "aws_subnet" "public-1a" {
   tags = merge(
     var.tags,
     {
-      Name                     = "${var.project_name}-public-1a"
-      "kubernetes.io/role/elb" = 1
+      Name                                                    = "${var.project_name}-public-1a",
+      "kubernetes.io/role/elb"                                = 1,
+      "kubernetes.io/cluster/${var.project_name}-eks-cluster" = "shared"
     }
   )
 }
@@ -22,8 +23,9 @@ resource "aws_subnet" "public-1b" {
   tags = merge(
     var.tags,
     {
-      Name                     = "${var.project_name}-public-1b"
-      "kubernetes.io/role/elb" = 1
+      Name                                                    = "${var.project_name}-public-1b",
+      "kubernetes.io/role/elb"                                = 1,
+      "kubernetes.io/cluster/${var.project_name}-eks-cluster" = "shared"
     }
   )
 }
@@ -37,8 +39,9 @@ resource "aws_subnet" "public-1c" {
   tags = merge(
     var.tags,
     {
-      Name                     = "${var.project_name}-public-1c"
-      "kubernetes.io/role/elb" = 1
+      Name                                                    = "${var.project_name}-public-1c",
+      "kubernetes.io/role/elb"                                = 1,
+      "kubernetes.io/cluster/${var.project_name}-eks-cluster" = "shared"
     }
   )
 }
