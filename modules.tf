@@ -36,12 +36,14 @@ module "managed_node_group" {
   private_subnet_1c    = [module.eks-network.subnet-private-1c]
   admin_user_arn       = var.admin_user_arn
   cluster_name         = module.eks-cluster.cluster_name
+  oidc-identity        = module.eks-cluster.oidc-identity
 }
 
 module "load_balancer" {
   source = "./modules/load-balancer"
 
-  project_name = var.project_name
-  tags         = local.tags
-  cluster_name = module.eks-cluster.cluster_name
+  project_name  = var.project_name
+  tags          = local.tags
+  cluster_name  = module.eks-cluster.cluster_name
+  oidc_identity = [module.eks-cluster.oidc-identity]
 }

@@ -48,3 +48,9 @@ variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster"
 }
+
+variable "oidc-identity" {
+  type        = string
+  description = "HTTPS OIDC identity provider URL of the cluster EKS"
+  default     = null
+}

@@ -28,3 +28,15 @@ variable "admin_user_arn" {
   description = "ARN of the IAM user that should have admin access to the EKS cluster"
   default     = null
 }
+
+variable "oidc-identity" {
+  type        = string
+  description = "OIDC identity provider URL"
+  default     = null
+}
+
+variable "eks-cluster-endpoint" {
+  type        = string
+  description = "EKS cluster endpoint"
+  default     = null
+}

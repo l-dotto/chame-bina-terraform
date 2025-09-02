@@ -1,18 +1,14 @@
-resource "aws_iam_policy" "policy_load_balancer" {
-  name        = "${var.project_name}-load-balancer-policy"
-  path        = "/"
+resource "aws_iam_policy" "load-balancer-policy" {
   description = "Policy needed for load balancer controller"
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "ec2:Describe*",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
+  policy = (
+    file("${path.module}/iam-policy.json")
+  )
+
+  tags = merge(
+    var.tags,
+    {
+      name = "${var.project_name}-load-balancer-policy"
+    }
+  )
 }

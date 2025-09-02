@@ -12,3 +12,9 @@ variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster"
 }
+
+
+variable "oidc_identity" {
+  type        = list(string)
+  description = "OIDC identity provider URL of the cluster EKS"
+}
