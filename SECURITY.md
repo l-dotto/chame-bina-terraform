@@ -14,7 +14,7 @@
 2. Fill in your specific values (ARNs, account IDs, etc.)
 3. Verify `.gitignore` is working: `git check-ignore terraform.tfvars`
 
-## 🛡️ AWS Security Best Practices
+## AWS Security Best Practices
 
 ### IAM User Configuration:
 - Use IAM users with minimal required permissions
@@ -28,7 +28,7 @@
 - OIDC provider for service accounts (✅ implemented)
 - Regular security patches and updates
 
-## 🚨 Security Checklist
+## Security Checklist
 
 Before any commit:
 - [ ] No `.tfvars` files in git
@@ -37,7 +37,7 @@ Before any commit:
 - [ ] `.gitignore` is comprehensive
 - [ ] Sensitive data is in external configuration
 
-## 🔍 Verification Commands
+## Verification Commands
 
 ```bash
 # Check for sensitive files in git
@@ -50,7 +50,7 @@ git check-ignore terraform.tfvars
 git log --grep="password\|secret\|key" --oneline
 ```
 
-## 🆘 If Secrets Were Committed
+## If Secrets Were Committed
 
 1. **DO NOT** push to remote repository
 2. Remove secrets from files immediately
@@ -58,7 +58,7 @@ git log --grep="password\|secret\|key" --oneline
 4. Rotate any exposed credentials immediately
 5. Review all commits for sensitive data
 
-## 📞 Security Incident Response
+## Security Incident Response
 
 If sensitive data was accidentally committed:
 1. Stop all operations immediately

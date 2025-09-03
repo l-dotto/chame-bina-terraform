@@ -187,7 +187,7 @@ terraform-docs --version
 # 1. Usuário criado > Security credentials
 # 2. Access keys > Create access key
 # 3. Escolha: "Command Line Interface (CLI)"
-# 4. ✅ Confirme que entende as recomendações
+# 4. Confirme que entende as recomendações
 # 5. Baixe ou copie:
 #    - Access Key ID (ex: AKIAXXXXXXXXXXXXXXXX)
 #    - Secret Access Key (ex: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
@@ -301,14 +301,14 @@ aws s3api put-bucket-versioning --bucket seu-projeto-terraform-state --versionin
 
 Antes de prosseguir, confirme que você tem:
 
-- [ ] ✅ Usuário IAM criado (NÃO root)
-- [ ] ✅ Policy `AdministratorAccess` anexada
-- [ ] ✅ Access Key ID obtida
-- [ ] ✅ Secret Access Key obtida  
-- [ ] ✅ `aws configure` executado com sucesso
-- [ ] ✅ `aws sts get-caller-identity` funcionando
-- [ ] ✅ Key Pair EC2 criada (.pem baixada)
-- [ ] ✅ ARN do usuário copiado para `admin_user_arn`
+- [ ] Usuário IAM criado (NÃO root)
+- [ ] Policy `AdministratorAccess` anexada
+- [ ] Access Key ID obtida
+- [ ] Secret Access Key obtida  
+- [ ] `aws configure` executado com sucesso
+- [ ] `aws sts get-caller-identity` funcionando
+- [ ] Key Pair EC2 criada (.pem baixada)
+- [ ] ARN do usuário copiado para `admin_user_arn`
 
 **Se QUALQUER item não estiver ✅, PARE e resolva antes de continuar!**
 
@@ -397,10 +397,10 @@ chame-bina-terraform/
 ├── terraform.tfvars         # ⚠️  Seus valores (não committar)
 ├── terraform.tfvars.example # Template para configuração
 ├── modules/
-│   ├── network/             # 🌐 Infraestrutura de rede
-│   ├── cluster/             # ☸️  Cluster EKS
-│   ├── managed-node-group/  # 🖥️  Worker nodes
-│   └── load-balancer/       # ⚖️  AWS Load Balancer Controller
+│   ├── network/             # Infraestrutura de rede
+│   ├── cluster/             # Cluster EKS
+│   ├── managed-node-group/  # Worker nodes
+│   └── load-balancer/       # AWS Load Balancer Controller
 └── docs/
     ├── ARCHITECTURE.md      # Este documento
     └── PROJECT_OBJECTIVE.md # Objetivos do projeto
