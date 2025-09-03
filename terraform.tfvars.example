@@ -1,24 +1,70 @@
-# Example Terraform Variables Configuration
-# Copy this file to terraform.tfvars and fill in your values
+# ===================================================================
+# CHAME BINA INFRASTRUCTURE STARTER - CONFIGURAÇÃO DE EXEMPLO
+# ===================================================================
+# 
+# 🚨 IMPORTANTE: 
+# 1. Copie este arquivo para 'terraform.tfvars'
+# 2. Ajuste os valores conforme seu projeto
+# 3. NUNCA commite o terraform.tfvars (contém dados sensíveis)
+#
+# Comando: cp terraform.tfvars.example terraform.tfvars
+# ===================================================================
 
-# Network configuration
-aws_region   = "us-east-1"
-project_name = "your-project-name"
+# ===== CONFIGURAÇÃO OBRIGATÓRIA =====
 
-# VPC and subnet configuration
-cidr_block = "10.0.0.0/16"
-public_subnet_cidrs = [
-  "10.0.1.0/24",
-  "10.0.3.0/24", 
-  "10.0.5.0/24"
-]
-private_subnet_cidrs = [
-  "10.0.2.0/24",
-  "10.0.4.0/24",
-  "10.0.6.0/24"
-]
+# 🌐 REDE - Configuração padrão recomendada (funciona para 95% dos casos)
+cidr_block           = "10.0.0.0/16"
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.3.0/24", "10.0.5.0/24"]
+private_subnet_cidrs = ["10.0.2.0/24", "10.0.4.0/24", "10.0.6.0/24"]
 
-# 🔐 SECURITY CONFIGURATION
-# Replace with your IAM user ARN who will have admin access to the EKS cluster
-# Find your ARN with: aws sts get-caller-identity
-admin_user_arn = "arn:aws:iam::YOUR-ACCOUNT-ID:user/YOUR-USERNAME"
+# 📍 LOCALIZAÇÃO - Escolha a região mais próxima dos usuários
+aws_region = "us-east-1"  # Altere se necessário: us-west-2, eu-west-1, sa-east-1
+
+# 🏷️ PROJETO - Nome único que identificará todos os recursos
+# ⚠️ CRÍTICO: Este nome será usado em TODA a infraestrutura
+# Formato recomendado: empresa-projeto-ambiente
+project_name = "minha-empresa-projeto-prod"  # ALTERE ESTE VALOR!
+
+# 👤 ADMINISTRADOR - ARN do usuário que terá acesso total ao cluster
+# ⚠️ CRÍTICO: Este deve ser o ARN do usuário IAM (NÃO root!)
+# 
+# Como obter seu ARN:
+# 1. Execute: aws sts get-caller-identity
+# 2. Copie o valor do campo "Arn"
+# 3. Deve ser similar a: arn:aws:iam::123456789012:user/terraform-admin
+#
+# ❌ NUNCA use conta root: arn:aws:iam::123456789012:root
+# ✅ Use usuário IAM: arn:aws:iam::123456789012:user/devops-admin
+admin_user_arn = "arn:aws:iam::123456789012:user/seu-usuario"  # ALTERE ESTE VALOR!
+
+# ===== EXEMPLOS DE CONFIGURAÇÃO POR TIPO DE PROJETO =====
+
+# 🏦 PROJETO BANCÁRIO/FINTECH
+# project_name = "banco-digital-prod"
+# aws_region   = "us-east-1"  # Regulamentações financeiras
+
+# 🛒 E-COMMERCE
+# project_name = "loja-virtual-prod"
+# aws_region   = "us-east-1"  # Proximidade com CDN
+
+# 📊 ANALYTICS/DASHBOARD
+# project_name = "dashboard-analytics"
+# aws_region   = "us-west-2"  # Proximidade com data lakes
+
+# 🚀 STARTUP/MVP
+# project_name = "startup-mvp"
+# aws_region   = "us-east-1"  # Custo otimizado
+
+# ===== CONFIGURAÇÕES AVANÇADAS (OPCIONAL) =====
+
+# 🔧 Para projetos com múltiplos ambientes, considere:
+# project_name = "empresa-app-dev"     # Desenvolvimento
+# project_name = "empresa-app-staging" # Homologação  
+# project_name = "empresa-app-prod"    # Produção
+
+# 📝 NOTAS IMPORTANTES:
+# - O project_name não pode conter espaços ou caracteres especiais
+# - Use apenas letras, números e hífens
+# - Máximo 63 caracteres (limitação AWS)
+# - Seja descritivo mas conciso
+# - Considere versionamento se necessário: app-v2, api-v3
