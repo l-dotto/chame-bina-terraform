@@ -26,4 +26,11 @@ resource "aws_eks_node_group" "aws_eks_node_group" {
     aws_iam_policy_attachment.eks-mng-role-attachment-cni,
     aws_iam_policy_attachment.eks-mng-role-attachment-ecr,
   ]
+
+  tags = merge(
+    var.tags,
+    {
+      name = "${var.project_name}-backend-qa"
+    }
+  )
 }

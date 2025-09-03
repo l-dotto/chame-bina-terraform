@@ -47,3 +47,10 @@ module "load_balancer" {
   cluster_name  = module.eks-cluster.cluster_name
   oidc_identity = [module.eks-cluster.oidc-identity]
 }
+
+module "ecr" {
+  source = "./modules/elastic-container-registry"
+
+  project_name = var.project_name
+  tags         = local.tags
+}
