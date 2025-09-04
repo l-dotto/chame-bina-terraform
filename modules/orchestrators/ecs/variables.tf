@@ -56,3 +56,10 @@ variable "ecr_repositories" {
   type        = map(string)
   default     = {}
 }
+
+variable "database_environment_vars" {
+  description = "Database environment variables to inject into ECS tasks"
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+}

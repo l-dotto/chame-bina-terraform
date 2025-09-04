@@ -61,3 +61,10 @@ variable "tags" {
   type        = map(any)
   description = "Tags to be added to AWS resources"
 }
+
+variable "database_environment_vars" {
+  description = "Database environment variables to inject into ECS tasks"
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+}

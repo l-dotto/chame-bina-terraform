@@ -82,3 +82,10 @@ variable "node_groups" {
     }
   }
 }
+
+variable "database_environment_vars" {
+  description = "Database environment variables to inject into Kubernetes deployments"
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+}

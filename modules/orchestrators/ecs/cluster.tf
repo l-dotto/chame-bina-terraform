@@ -50,12 +50,13 @@ resource "aws_ecs_cluster_capacity_providers" "main" {
 module "ecs_services" {
   source = "./services"
 
-  project_name     = var.project_name
-  environment      = var.environment
-  cluster_name     = aws_ecs_cluster.main.name
-  subnet_ids       = var.subnet_ids
-  vpc_id           = var.vpc_id
-  services         = var.services
-  ecr_repositories = var.ecr_repositories
-  tags             = var.tags
+  project_name              = var.project_name
+  environment               = var.environment
+  cluster_name              = aws_ecs_cluster.main.name
+  subnet_ids                = var.subnet_ids
+  vpc_id                    = var.vpc_id
+  services                  = var.services
+  ecr_repositories          = var.ecr_repositories
+  database_environment_vars = var.database_environment_vars
+  tags                      = var.tags
 }

@@ -64,6 +64,14 @@ ecs_services = {
   }
 }
 
+# RDS Database Configuration
+rds_instance_class          = "db.t3.small"     # Classe da instância RDS (maior para produção)
+rds_allocated_storage       = 100               # Armazenamento inicial em GB
+rds_max_allocated_storage   = 1000             # Armazenamento máximo para autoscaling
+rds_backup_retention_period = 30               # Dias de retenção de backup (mais tempo para produção)
+rds_deletion_protection     = true             # Proteção contra exclusão OBRIGATÓRIA
+rds_skip_final_snapshot     = false            # Criar snapshot final OBRIGATÓRIO
+
 # Azure DevOps OIDC Configuration (opcional)
 # Descomente e configure se quiser usar OIDC com Azure DevOps
 # azure_devops_organization = "your-organization"

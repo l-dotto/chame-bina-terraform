@@ -251,7 +251,7 @@ fi
 
 echo ""
 print_header "🎯 INFORMAÇÕES ÚTEIS"
-print_info "Documentação: README.md e docs/ARCHITECTURE.md"
+print_info "Documentação: README.md e wiki/ARCHITECTURE.md"
 print_info "Suporte: https://github.com/seu-usuario/chame-bina-terraform"
 print_info "Versão do script: 1.0"
 echo ""

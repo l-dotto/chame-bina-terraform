@@ -31,6 +31,27 @@ resource "aws_ecs_task_definition" "app" {
         }
       }
 
+      environment = concat(
+        # Default environment variables
+        [
+          {
+            name  = "NODE_ENV"
+            value = var.environment
+          },
+          {
+            name  = "PORT"
+            value = tostring(each.value.port)
+          }
+        ],
+        # Database environment variables (only for backend services)
+        each.key == "backend" ? [
+          for key, value in var.database_environment_vars : {
+            name  = key
+            value = value
+          }
+        ] : []
+      )
+
       healthCheck = {
         command     = ["CMD-SHELL", "curl -f http://localhost:${each.value.port}${each.value.health_check_path} || exit 1"]
         interval    = 30

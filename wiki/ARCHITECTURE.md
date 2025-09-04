@@ -343,7 +343,7 @@ echo "📋 Próximo passo: Configure o terraform.tfvars"
 
 ## Referência Completa - Terraform Docs
 
-> Esta seção contém a documentação técnica completa gerada automaticamente pelo `terraform-docs`. Mantenha sempre atualizada executando: `terraform-docs markdown table . > docs/terraform-reference.md`
+> Esta seção contém a documentação técnica completa gerada automaticamente pelo `terraform-docs`. Mantenha sempre atualizada executando: `terraform-docs markdown table . > wiki/terraform-reference.md`
 
 ### Requirements
 
@@ -401,7 +401,7 @@ chame-bina-terraform/
 │   ├── cluster/             # Cluster EKS
 │   ├── managed-node-group/  # Worker nodes
 │   └── load-balancer/       # AWS Load Balancer Controller
-└── docs/
+└── wiki/
     ├── ARCHITECTURE.md      # Este documento
     └── PROJECT_OBJECTIVE.md # Objetivos do projeto
 ```

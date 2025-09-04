@@ -127,3 +127,24 @@ output "azure_devops_oidc_info" {
     project                 = var.azure_devops_project
   } : null
 }
+
+# Database outputs
+output "database_info" {
+  description = "Database connection information"
+  value = {
+    endpoint          = module.rds.db_instance_endpoint
+    port              = module.rds.db_instance_port
+    database_name     = module.rds.db_instance_name
+    username          = module.rds.db_instance_username
+    secret_arn        = module.rds.db_secret_arn
+    secret_name       = module.rds.db_secret_name
+    security_group_id = module.rds.db_security_group_id
+    subnet_group_id   = module.rds.db_subnet_group_id
+  }
+}
+
+output "database_environment_vars" {
+  description = "Database environment variables for application deployment"
+  value       = module.rds.database_environment_vars
+  sensitive   = true
+}

@@ -139,3 +139,40 @@ variable "azdo_personal_access_token" {
   default     = null
   sensitive   = true
 }
+
+# RDS Configuration
+variable "rds_instance_class" {
+  description = "RDS instance class"
+  type        = string
+  default     = "db.t3.micro"
+}
+
+variable "rds_allocated_storage" {
+  description = "Initial allocated storage in GB"
+  type        = number
+  default     = 20
+}
+
+variable "rds_max_allocated_storage" {
+  description = "Maximum allocated storage in GB for autoscaling"
+  type        = number
+  default     = 100
+}
+
+variable "rds_backup_retention_period" {
+  description = "Number of days to retain automated backups"
+  type        = number
+  default     = 7
+}
+
+variable "rds_deletion_protection" {
+  description = "Enable deletion protection for the database"
+  type        = bool
+  default     = true
+}
+
+variable "rds_skip_final_snapshot" {
+  description = "Skip final snapshot when deleting the database"
+  type        = bool
+  default     = false
+}
