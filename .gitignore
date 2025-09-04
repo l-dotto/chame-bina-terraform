@@ -62,6 +62,7 @@ known_hosts
 # Environment files
 .env
 .env.*
+*.env
 .envrc
 .envrc.local
 
@@ -72,6 +73,14 @@ known_hosts
 *token*
 vault.yml
 secrets.yml
+
+# Azure DevOps PAT & Authentication
+azdo-pat.txt
+azure-devops-token.txt
+pat.txt
+personal-access-token.txt
+.azdo_token
+AZDO_PAT
 
 # IDE & Editor files
 .vscode/

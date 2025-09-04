@@ -1,0 +1,70 @@
+# Production Environment Configuration - EXAMPLE
+# IMPORTANTE: Copie este arquivo para terraform.tfvars e ajuste os valores
+
+# Container orchestrator configuration
+container_orchestrator = "eks"  # Recomendado para produção
+project_name           = "chame-bina"
+environment            = "prod"
+aws_region             = "us-east-1"
+
+# Repository configuration
+repository_names = ["backend", "frontend"]
+
+# Network configuration
+cidr_block = "10.2.0.0/16"
+public_subnet_cidrs = [
+  "10.2.1.0/24",  # us-east-1a
+  "10.2.3.0/24",  # us-east-1b
+  "10.2.5.0/24"   # us-east-1c
+]
+private_subnet_cidrs = [
+  "10.2.2.0/24",  # us-east-1a
+  "10.2.4.0/24",  # us-east-1b
+  "10.2.6.0/24"   # us-east-1c
+]
+
+# Admin access (substitua pelo seu ARN de usuário)
+admin_user_arn = "arn:aws:iam::YOUR-ACCOUNT-ID:user/YOUR-USERNAME"
+
+# EKS Node groups configuration (produção com mais recursos)
+node_groups = {
+  backend = {
+    instance_types  = ["t3.medium"]
+    capacity_type   = "ON_DEMAND"
+    desired_size    = 2
+    max_size        = 5
+    min_size        = 2
+    max_unavailable = 1
+  }
+  frontend = {
+    instance_types  = ["t3.medium"]
+    capacity_type   = "ON_DEMAND"
+    desired_size    = 2
+    max_size        = 5
+    min_size        = 2
+    max_unavailable = 1
+  }
+}
+
+# ECS services configuration (produção com mais recursos)
+ecs_services = {
+  backend = {
+    cpu               = 512
+    memory            = 1024
+    desired_count     = 2
+    port              = 8080
+    health_check_path = "/health"
+  }
+  frontend = {
+    cpu               = 512
+    memory            = 1024
+    desired_count     = 2
+    port              = 3000
+    health_check_path = "/"
+  }
+}
+
+# Azure DevOps OIDC Configuration (opcional)
+# Descomente e configure se quiser usar OIDC com Azure DevOps
+# azure_devops_organization = "your-organization"
+# azure_devops_project      = "your-project"

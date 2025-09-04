@@ -113,3 +113,17 @@ output "cluster_endpoint" {
   description = "Endpoint of the EKS cluster (null if ECS is used)"
   value       = local.is_eks && length(module.eks_cluster) > 0 ? module.eks_cluster[0].eks-cluster-endpoint : null
 }
+
+# Azure DevOps OIDC outputs (conditional)
+output "azure_devops_oidc_info" {
+  description = "Azure DevOps OIDC provider information (null if not configured)"
+  value = var.azure_devops_organization != null && length(module.aws_oidc_provider) > 0 ? {
+    provider_arn            = module.aws_oidc_provider[0].oidc_provider_arn
+    provider_url            = module.aws_oidc_provider[0].oidc_provider_url
+    role_arn                = module.aws_oidc_provider[0].role_arn
+    role_name               = module.aws_oidc_provider[0].role_name
+    service_connection_name = "aws-${var.project_name}"
+    organization            = var.azure_devops_organization
+    project                 = var.azure_devops_project
+  } : null
+}

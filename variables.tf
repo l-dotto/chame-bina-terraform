@@ -120,3 +120,22 @@ variable "eks-cluster-endpoint" {
   description = "EKS cluster endpoint"
   default     = null
 }
+
+variable "azure_devops_organization" {
+  type        = string
+  description = "Azure DevOps organization name"
+  default     = null
+}
+
+variable "azure_devops_project" {
+  type        = string
+  description = "Azure DevOps project name"
+  default     = null
+}
+
+variable "azdo_personal_access_token" {
+  type        = string
+  description = "Azure DevOps Personal Access Token (configure via env var AZDO_PERSONAL_ACCESS_TOKEN)"
+  default     = null
+  sensitive   = true
+}

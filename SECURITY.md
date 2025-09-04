@@ -1,68 +1,79 @@
-# Security Guidelines
+# Guia de Segurança
 
-## 🔒 Sensitive Data Protection
+## Informações Sensíveis - NUNCA COMMITAR
 
-### Files that should NEVER be committed:
-- `terraform.tfvars` - Contains sensitive configuration values
-- `*.pem`, `*.key` - SSH keys and certificates
-- `credentials*` - AWS/Cloud provider credentials
-- `.env*` - Environment variables
-- `*secret*`, `*password*` - Any files containing secrets
+Este projeto está configurado para **NUNCA** commitar informações sensíveis. Os seguintes tipos de dados são automaticamente ignorados:
 
-### Configuration Setup:
-1. Copy `terraform.tfvars.example` to `terraform.tfvars`
-2. Fill in your specific values (ARNs, account IDs, etc.)
-3. Verify `.gitignore` is working: `git check-ignore terraform.tfvars`
+### Arquivos Automaticamente Ignorados
+- `*.tfvars` - Configurações com dados sensíveis
+- `*.tfvars.json` - Configurações JSON
+- `.env` e `.env.*` - Variáveis de ambiente
+- `*token*` - Qualquer arquivo com "token" no nome
+- `*secret*` - Qualquer arquivo com "secret" no nome
+- `*password*` - Qualquer arquivo com "password" no nome
 
-## AWS Security Best Practices
+### Tokens e Credenciais Protegidas
+- **Azure DevOps PAT** - Personal Access Tokens
+- **AWS Access Keys** - Chaves de acesso AWS
+- **SSH Keys** - Chaves privadas
+- **Certificados** - Arquivos .pem, .key, .crt
 
-### IAM User Configuration:
-- Use IAM users with minimal required permissions
-- Enable MFA on all administrative accounts
-- Rotate access keys regularly
-- Never hardcode AWS credentials in code
+## Configuração Segura
 
-### EKS Security:
-- Worker nodes are in private subnets (✅ implemented)
-- Access via EKS Access Entries only (✅ implemented)
-- OIDC provider for service accounts (✅ implemented)
-- Regular security patches and updates
-
-## Security Checklist
-
-Before any commit:
-- [ ] No `.tfvars` files in git
-- [ ] No hardcoded secrets or credentials
-- [ ] No private keys or certificates
-- [ ] `.gitignore` is comprehensive
-- [ ] Sensitive data is in external configuration
-
-## Verification Commands
-
+### 1. Configure Variáveis de Ambiente
 ```bash
-# Check for sensitive files in git
-git ls-files | grep -E '\.(tfvars|env|key|pem)$|secret'
+# Copie o arquivo de exemplo
+cp .env.example .env
 
-# Verify gitignore is working
-git check-ignore terraform.tfvars
+# Edite com seus valores REAIS (nunca será commitado)
+nano .env
 
-# Check for exposed secrets in commit history
-git log --grep="password\|secret\|key" --oneline
+# Carregue as variáveis
+source .env
 ```
 
-## If Secrets Were Committed
+### 2. Configure Terraform Variables
+```bash
+# Para QA
+cp environments/qa/terraform.tfvars.example environments/qa/terraform.tfvars
+# Edite com valores reais
 
-1. **DO NOT** push to remote repository
-2. Remove secrets from files immediately
-3. Use `git filter-branch` or BFG Repo-Cleaner to remove from history
-4. Rotate any exposed credentials immediately
-5. Review all commits for sensitive data
+# Para Produção  
+cp environments/prod/terraform.tfvars.example environments/prod/terraform.tfvars
+# Edite com valores reais
+```
 
-## Security Incident Response
+### 3. Validar Configuração
+```bash
+# Verificar se arquivos sensíveis estão ignorados
+git status
 
-If sensitive data was accidentally committed:
-1. Stop all operations immediately
-2. Assess the scope of exposure
-3. Rotate all potentially compromised credentials
-4. Clean git history using appropriate tools
-5. Document the incident and prevention measures with e-mail luan.dotto@premiersoft.net
+# Os seguintes arquivos NÃO devem aparecer:
+# - .env
+# - environments/*/terraform.tfvars
+# - Qualquer arquivo com *token*, *secret*, *password*
+```
+
+## ⚠️ Em Caso de Exposição Acidental
+
+Se você acidentalmente commitou informações sensíveis:
+
+### 1. **Revogar Imediatamente**
+- AWS: Desabilitar/deletar access keys
+- Azure DevOps: Revogar Personal Access Token
+
+### 2. **Limpar Histórico Git**
+```bash
+# Para remover do histórico (CUIDADO!)
+git filter-branch --force --index-filter \
+  'git rm --cached --ignore-unmatch ARQUIVO_SENSIVEL' \
+  --prune-empty --tag-name-filter cat -- --all
+
+# Forçar push (irá reescrever histórico)
+git push --force --all
+```
+
+### 3. **Recriar Credenciais**
+- Gere novas credenciais
+- Atualize todos os sistemas que usam as antigas
+- Configure alertas de segurança

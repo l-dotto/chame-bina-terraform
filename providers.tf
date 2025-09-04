@@ -12,6 +12,14 @@ terraform {
       source  = "hashicorp/helm"
       version = "3.0.2"
     }
+    azuredevops = {
+      source  = "microsoft/azuredevops"
+      version = ">=1.0.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0"
+    }
   }
 
 
@@ -34,4 +42,10 @@ provider "kubernetes" {
 provider "helm" {
   # Provider configs will be set conditionally based on orchestrator choice
   # For now, keeping simple for validation
+}
+
+# Azure DevOps provider - configurado apenas quando necessário
+provider "azuredevops" {
+  org_service_url       = "https://dev.azure.com/premiersoftbr"
+  personal_access_token = var.azdo_personal_access_token
 }

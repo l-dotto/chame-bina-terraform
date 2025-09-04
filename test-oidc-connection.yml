@@ -1,0 +1,113 @@
+# Azure DevOps Pipeline para testar a conexão OIDC
+# Salve este arquivo no seu repositório Azure DevOps e execute como pipeline
+
+trigger: none # Execute manualmente para teste
+
+variables:
+  AWS_REGION: 'us-east-1'
+  SERVICE_CONNECTION_NAME: 'aws-chame-bina'  # Nome da service connection que será criada
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: TestOIDCConnection
+  displayName: 'Test OIDC Connection'
+  jobs:
+  - job: TestAWSAccess
+    displayName: 'Test AWS Access via OIDC'
+    steps:
+    
+    - task: AWSShellScript@1
+      displayName: 'Test AWS CLI Access'
+      inputs:
+        awsCredentials: '$(SERVICE_CONNECTION_NAME)'
+        regionName: '$(AWS_REGION)'
+        scriptType: 'inline'
+        inlineScript: |
+          echo "=== Testing AWS OIDC Connection ==="
+          echo "Service Connection: $(SERVICE_CONNECTION_NAME)"
+          echo "AWS Region: $(AWS_REGION)"
+          echo ""
+          
+          echo "1. Getting caller identity..."
+          aws sts get-caller-identity
+          echo ""
+          
+          echo "2. Testing ECS permissions..."
+          aws ecs list-clusters --region $(AWS_REGION)
+          echo ""
+          
+          echo "3. Testing ECR permissions..."
+          aws ecr describe-repositories --region $(AWS_REGION) --max-items 5
+          echo ""
+          
+          echo "4. Testing EC2 permissions..."
+          aws ec2 describe-vpcs --region $(AWS_REGION) --max-items 3
+          echo ""
+          
+          echo "5. Testing IAM permissions (limited)..."
+          aws iam list-roles --max-items 5 --query 'Roles[?contains(RoleName, `chame-bina`)].{RoleName:RoleName,Arn:Arn}'
+          echo ""
+          
+          echo "✅ OIDC Connection Test Completed Successfully!"
+          
+    - task: AWSShellScript@1
+      displayName: 'Test Terraform Compatibility'
+      inputs:
+        awsCredentials: '$(SERVICE_CONNECTION_NAME)'
+        regionName: '$(AWS_REGION)'
+        scriptType: 'inline'
+        inlineScript: |
+          echo "=== Testing Terraform Compatibility ==="
+          
+          # Install Terraform (latest version)
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-get update && sudo apt-get install terraform
+          
+          echo "Terraform version:"
+          terraform version
+          echo ""
+          
+          echo "Creating test Terraform configuration..."
+          cat > test-main.tf << 'EOF'
+          provider "aws" {
+            region = "us-east-1"
+          }
+          
+          data "aws_caller_identity" "current" {}
+          
+          data "aws_region" "current" {}
+          
+          output "account_id" {
+            value = data.aws_caller_identity.current.account_id
+          }
+          
+          output "region" {
+            value = data.aws_region.current.name
+          }
+          
+          output "user_arn" {
+            value = data.aws_caller_identity.current.arn
+          }
+          EOF
+          
+          echo "Initializing Terraform..."
+          terraform init
+          echo ""
+          
+          echo "Running Terraform plan..."
+          terraform plan
+          echo ""
+          
+          echo "Getting outputs..."
+          terraform apply -auto-approve
+          terraform output
+          echo ""
+          
+          echo "✅ Terraform Test Completed Successfully!"
+          
+          # Cleanup
+          rm -f test-main.tf .terraform.lock.hcl
+          rm -rf .terraform/
