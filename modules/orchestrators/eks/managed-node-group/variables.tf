@@ -54,3 +54,31 @@ variable "oidc-identity" {
   description = "HTTPS OIDC identity provider URL of the cluster EKS"
   default     = null
 }
+
+variable "environment" {
+  description = "Environment name (e.g., qa, prod, dev)"
+  type        = string
+  default     = "qa"
+}
+
+variable "node_groups" {
+  description = "Map of node group configurations"
+  type = map(object({
+    instance_types  = list(string)
+    capacity_type   = string
+    desired_size    = number
+    max_size        = number
+    min_size        = number
+    max_unavailable = number
+  }))
+  default = {
+    backend = {
+      instance_types  = ["t3.micro"]
+      capacity_type   = "ON_DEMAND"
+      desired_size    = 1
+      max_size        = 2
+      min_size        = 1
+      max_unavailable = 1
+    }
+  }
+}

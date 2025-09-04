@@ -1,6 +1,8 @@
 resource "aws_eks_node_group" "aws_eks_node_group" {
+  for_each = var.node_groups
+
   cluster_name    = var.cluster_name
-  node_group_name = "${var.project_name}-backend-qa"
+  node_group_name = "${var.project_name}-${each.key}-${var.environment}"
   node_role_arn   = aws_iam_role.eks-mng-role.arn
   subnet_ids = concat(
     var.private_subnet_1a,
@@ -8,17 +10,17 @@ resource "aws_eks_node_group" "aws_eks_node_group" {
     var.private_subnet_1c
   )
 
-  instance_types = ["t3.micro"]
-  capacity_type  = "ON_DEMAND"
+  instance_types = each.value.instance_types
+  capacity_type  = each.value.capacity_type
 
   scaling_config {
-    desired_size = 1
-    max_size     = 2
-    min_size     = 1
+    desired_size = each.value.desired_size
+    max_size     = each.value.max_size
+    min_size     = each.value.min_size
   }
 
   update_config {
-    max_unavailable = 1
+    max_unavailable = each.value.max_unavailable
   }
 
   depends_on = [
@@ -30,7 +32,8 @@ resource "aws_eks_node_group" "aws_eks_node_group" {
   tags = merge(
     var.tags,
     {
-      name = "${var.project_name}-backend-qa"
+      name        = "${var.project_name}-${each.key}-${var.environment}"
+      application = each.key
     }
   )
 }

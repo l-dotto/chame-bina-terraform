@@ -21,3 +21,8 @@ output "subnet-private-1b" {
 output "subnet-private-1c" {
   value = aws_subnet.private-1c.id
 }
+
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = aws_vpc.eks-vpc.id
+}
